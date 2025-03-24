@@ -11,7 +11,7 @@ export const fetchProducts = async () => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-Shopify-Storefront-Access-Token":
+      "7d8010b4e2349801ab1613f76304dd8e":
         process.env.REACT_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
     },
     body: JSON.stringify(query),

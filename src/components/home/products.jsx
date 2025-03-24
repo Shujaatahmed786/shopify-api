@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { fetchProducts } from "../../../api/shopifyApi";
+import { fetchProducts } from "../../app/pages/api/shopifyApi";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
