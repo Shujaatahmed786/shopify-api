@@ -10,7 +10,7 @@ const AddToCart = () => {
     setError(null);
 
     const requestBody = {
-      variantId: "gid://shopify/ProductVariant/123456789", // Replace with actual variant ID
+      variantId: "gid://shopify/ProductVariant/123456789",
       quantity: 1,
     };
 

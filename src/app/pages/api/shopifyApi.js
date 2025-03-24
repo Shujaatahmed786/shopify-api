@@ -11,11 +11,15 @@ export const fetchProducts = async () => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "7d8010b4e2349801ab1613f76304dd8e":
-        process.env.REACT_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+      "X-Shopify-Storefront-Access-Token":
+        process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
     },
     body: JSON.stringify(query),
   });
+
+  if (!response.ok) {
+    throw new Error(`Error fetching products: ${response.statusText}`);
+  }
 
   const data = await response.json();
   return data.data.products.edges;
