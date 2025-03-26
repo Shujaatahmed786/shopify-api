@@ -1,32 +1,34 @@
 "use client";
 
-const SHOPIFY_URL = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_URL}/api/2024-01/graphql.json`;
+import shopifyClient from "../../../components/shopifyClient";
 
 export const fetchProducts = async () => {
-  const query = {
-    query: `{ products(first: 10) { edges { node { id title } } } }`,
-  };
+  const query = `
+    query {
+      products(first: 10) {
+        edges {
+          node {
+            id
+            title
+            images(first: 1) {
+              edges {
+                node {
+                  src
+                  altText
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
 
-  const response = await fetch(SHOPIFY_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Shopify-Storefront-Access-Token":
-        process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-    },
-    body: JSON.stringify(query),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Error fetching products: ${response.statusText}`);
+  try {
+    const { data } = await shopifyClient.request(query);
+    return data.products.edges;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw new Error(`Error fetching products: ${error.message}`);
   }
-
-  const data = await response.json();
-  return data.data.products.edges;
 };
-
-console.log("Shopify URL:", SHOPIFY_URL);
-console.log(
-  "Shopify Token:",
-  process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN
-);

@@ -5,11 +5,13 @@ import Navbar from "../components/navbar/navbar";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap", // Ensures fallback fonts are shown before the custom font loads
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap", // Same here
 });
 
 export const metadata = {
@@ -20,13 +22,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {/* Fixed Navbar */}
         <Navbar />
         <main className="pt-16">
-          {" "}
           {/* Add padding to prevent content overlap */}
           {children}
         </main>
