@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { fetchProducts } from "../../app/pages/api/shopifyApi"; // Make sure to adjust the path to the fetch function.
+import { fetchProducts } from "../../app/pages/api/shopifyApi";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -36,16 +36,23 @@ const Products = () => {
       <h2 className="text-3xl font-semibold text-center mb-8">Our Products</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {products.map((product) => (
-          <div key={product.node.id} className="bg-white shadow-lg rounded-lg overflow-hidden">
+          <div
+            key={product.node.id}
+            className="bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer"
+          >
             {/* Product Image */}
             <img
               src={product.node.images.edges[0]?.node.src}
-              alt={product.node.images.edges[0]?.node.altText || product.node.title}
+              alt={
+                product.node.images.edges[0]?.node.altText || product.node.title
+              }
               className="w-full h-64 object-cover"
             />
             {/* Product Title */}
             <div className="p-4">
-              <h3 className="text-xl font-semibold text-gray-800">{product.node.title}</h3>
+              <h3 className="text-xl font-semibold text-gray-800">
+                {product.node.title}
+              </h3>
             </div>
           </div>
         ))}
